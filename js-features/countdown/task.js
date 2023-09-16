@@ -1,13 +1,17 @@
 let item = document.getElementById("status");
 let timer = document.getElementById("timer");
+let intervalId = null;
 let countdown = function () {
   if (timer.textContent == 0) {
     clearInterval(intervalId);
+    alert("«Вы победили в конкурсе»");
   }
 
-  timer.textContent -= 1;
+  if (timer.textContent > 0) {
+    timer.textContent -= 1;
+  }
 };
 
 item.onclick = function () {
-  let intervalId = setInterval(countdown, 1000);
+  intervalId = setInterval(countdown, 100);
 };
