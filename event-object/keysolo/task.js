@@ -17,6 +17,8 @@ class Game {
   }
 
   registerEvents() {
+    const current = this.currentSymbol;
+
     /*
       TODO:
       Написать обработчик события, который откликается
