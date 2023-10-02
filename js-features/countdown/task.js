@@ -41,8 +41,9 @@ function fn() {
 
         if (hours.textContent < 0) {
           hours.textContent = 0;
-          minutes.textContent = 0;
-          seconds.textContent = 0;
+          // minutes.textContent = 0;
+          // seconds.textContent = 0;
+          clearInterval();
         }
       }
     }
