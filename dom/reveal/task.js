@@ -1,13 +1,13 @@
 let reveal = document.querySelector(".reveal");
 
-setInterval(() => {
+window.addEventListener("scroll", () => {
   let isVisible = reveal.getBoundingClientRect();
 
-  if (isVisible.top < 556 && isVisible.top > 0) {
+  let { bottom, top } = isVisible;
+
+  if (top > 0 && bottom < window.innerHeight) {
     reveal.classList.add("reveal_active");
   } else {
     reveal.classList.remove("reveal_active");
   }
-
-  //   console.log(`Top: ${isVisible.top} \nBottom: ${isVisible.bottom}`);
-}, 1000);
+});
