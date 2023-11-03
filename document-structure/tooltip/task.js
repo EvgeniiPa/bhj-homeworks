@@ -5,6 +5,8 @@ arr.forEach((item) => {
   item.addEventListener("click", (e) => {
     e.preventDefault();
 
+    item.style.position = "relativ";
+
     let itemRect = item.getBoundingClientRect();
 
     let div = document.createElement("div");
@@ -14,13 +16,15 @@ arr.forEach((item) => {
     div.setAttribute("class", "tooltip");
     div.textContent = item.title;
 
-    divRect.width = itemRect.width;
-    divRect.height = 30;
+    divRect.left = itemRect.left;
 
     divRect.y = itemRect.y + divRect.height;
 
-    div.classList.add("tooltip_active");
+    div.style.position = "absolute";
 
+    item.appendChild(div);
+
+    div.classList.toggle("tooltip_active");
     // console.log(
 
     //   "divRect.y: " + divRect.y,
@@ -35,6 +39,4 @@ arr.forEach((item) => {
   });
 });
 
-// Не могу понять , почему элемент не отображается;
-// В CSS не нашел размеры элемента с подсказкой (width и height);
-// Добавил необходимый стиль  "tooltip_active" , но элемент не появляется;
+// Не получается задать отступ слева.

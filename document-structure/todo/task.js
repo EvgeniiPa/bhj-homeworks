@@ -1,32 +1,52 @@
 let input = document.getElementById("task__input");
 let btn = document.getElementById("tasks__add");
 let form = document.getElementById("tasks__form");
+let tastList = document.getElementById("tasks__list");
 
 function createQuest() {
-  let tastList = document.getElementById("tasks__list");
-  let divParent = document.createElement("div");
-  let divChild = document.createElement("div");
-  let anchor = document.createElement("a");
-  divParent.setAttribute("class", "task");
-  divChild.setAttribute("class", "task__title");
-  divChild.textContent = input.value.trim();
-  anchor.setAttribute("class", "task__remove");
-  anchor.setAttribute("href", "#");
-  // Не получается вставить unicode так , чтобы отображался крестик. Пробол через бэктики, литеральные скобки.
-  anchor.textContent = "&times";
+  let element = `<div class="task">
+       <div class="task__title">
+       ${input.value.trim()}
+       </div>
+      <a href="#" class="task__remove">&times;</a>
+      </div>`;
+  tastList.innerHTML = tastList.innerHTML + element;
 
-  divParent.appendChild(divChild);
-  divParent.appendChild(anchor);
-  tastList.appendChild(divParent);
+  let task = document.querySelector(".task");
+  let cross = document.querySelector(".task__remove");
 
-  anchor.addEventListener("click", (e) => {
+  //----Добавляет обработчик только на первый создаваемый элемент
+
+  cross.addEventListener("click", (e) => {
     e.preventDefault();
-    divParent.remove();
+    task.remove();
   });
 }
 
+// function fn() {
+//   let cross = document.getElementsByClassName("task__remove");
+//   let task = document.getElementsByClassName("task");
+//   let arrCross = Array.from(cross);
+//   let arrTask = Array.from(task);
+
+//   // ---------Элементы спикска могу удаляться не в том порядке, в котором я нажимаю на крест. Т.е. пытаюсь удалить элемент 7 , удаляется 3й
+
+//   console.log("элемент крест: ", cross);
+//   console.log("элемент: ", task);
+
+//   arrCross.forEach((item, index) => {
+//     item.addEventListener("click", (e) => {
+//       e.preventDefault();
+//       task[index].remove();
+//     });
+//   });
+// }
+
 btn.addEventListener("click", (e) => {
   e.preventDefault();
-  createQuest();
+
+  if (input.value.trim() != "") {
+    createQuest();
+  }
   input.value = "";
 });
