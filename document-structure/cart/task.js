@@ -6,7 +6,9 @@ let imgs = document.querySelectorAll(".product__image");
 
 let product = document.querySelectorAll(".product");
 let cartProducts = document.querySelector(".cart__products");
-let arrayCarts = document.getElementsByClassName("cart__product");
+
+let carts = cartProducts.getElementsByClassName("cart__product");
+let arrCarts = Array.from(carts);
 
 btnMinus.forEach((item, index) => {
   item.addEventListener("click", (e) => {
@@ -33,8 +35,9 @@ btnPlus.forEach((item, index) => {
 btnAdd.forEach((item, index) => {
   item.addEventListener("click", (e) => {
     e.preventDefault();
+
     if (true) {
-      console.log("Работает");
+      console.log("Работает", arrCarts[index]);
       addCart(index);
     } else {
       console.log("Не работает");
@@ -50,6 +53,5 @@ function addCart(index) {
   <div class="cart__product-count">${count[index].textContent}</div>
     </div>`;
 
-  cartProducts.innerHTML = cartProducts.innerHTML + cartProduct;
-  console.log(cartProducts);
+  cartProducts.insertAdjacentHTML("beforeend", cartProduct);
 }

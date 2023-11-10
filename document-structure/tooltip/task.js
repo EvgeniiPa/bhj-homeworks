@@ -1,42 +1,31 @@
+let body = document.querySelector("body");
+
 let tooltips = document.querySelectorAll(".has-tooltip");
 let arr = Array.from(tooltips);
+let div = document.createElement("div");
+div.setAttribute("class", "tooltip");
+div.setAttribute("style", "left: 0; top: 0");
+
+body.insertAdjacentElement("afterbegin", div);
 
 arr.forEach((item) => {
   item.addEventListener("click", (e) => {
     e.preventDefault();
 
-    item.style.position = "relativ";
-
     let itemRect = item.getBoundingClientRect();
 
-    let div = document.createElement("div");
+    if (div.textContent != item.title) {
+      div.textContent = item.title;
+      div.style.left = itemRect.left + "px";
+      div.style.top = itemRect.bottom - itemRect.top + itemRect.top + "px";
+      div.classList.add("tooltip_active");
+    } else {
+      div.textContent = item.title;
+      div.style.left = itemRect.left + "px";
+      div.style.top = itemRect.bottom - itemRect.top + itemRect.top + "px";
+      div.classList.toggle("tooltip_active");
+    }
 
-    let divRect = div.getBoundingClientRect();
-
-    div.setAttribute("class", "tooltip");
-    div.textContent = item.title;
-
-    divRect.left = itemRect.left;
-
-    divRect.y = itemRect.y + divRect.height;
-
-    div.style.position = "absolute";
-
-    item.appendChild(div);
-
-    div.classList.toggle("tooltip_active");
-    // console.log(
-
-    //   "divRect.y: " + divRect.y,
-    //   "divRect.width: " + divRect.width,
-    //   "divRect.height: " + divRect.height
-    // );
-    // console.log(
-    //   "itemRect y: " + itemRect.y,
-    //   "itemRect x: " + itemRect.x,
-    //   "itemRect.width: " + itemRect.width
-    // );
+    console.log(div);
   });
 });
-
-// Не получается задать отступ слева.
