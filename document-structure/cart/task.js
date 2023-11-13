@@ -6,9 +6,7 @@ let imgs = document.querySelectorAll(".product__image");
 
 let product = document.querySelectorAll(".product");
 let cartProducts = document.querySelector(".cart__products");
-
 let carts = cartProducts.getElementsByClassName("cart__product");
-let arrCarts = Array.from(carts);
 
 btnMinus.forEach((item, index) => {
   item.addEventListener("click", (e) => {
@@ -36,11 +34,21 @@ btnAdd.forEach((item, index) => {
   item.addEventListener("click", (e) => {
     e.preventDefault();
 
-    if (true) {
-      console.log("Работает", arrCarts[index]);
-      addCart(index);
+    let arrCarts = Array.from(carts);
+    let productInCart = arrCarts.find((product) => {
+      return product.dataset.id == index + 1;
+    });
+
+    if (productInCart) {
+      let cartsCount = document.querySelectorAll(".cart__product-count");
+
+      let countValue =
+        Number(cartsCount[index].textContent) +
+        Number(count[index].textContent);
+      cartsCount[index].textContent = countValue;
+      count[index].textContent = 1;
     } else {
-      console.log("Не работает");
+      addCart(index);
     }
   });
 });
