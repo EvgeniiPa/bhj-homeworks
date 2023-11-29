@@ -5,18 +5,13 @@ btn.textContent = "Очистить содержимое";
 card.appendChild(btn);
 
 btn.addEventListener("click", (e) => {
-  e.preventDefault();
   textArea.value = "";
+  localStorage.removeItem("text");
 });
 
-textArea.addEventListener("change", (e) => {
-  saveItem();
+textArea.addEventListener("input", (e) => {
+  localStorage.setItem("text", textArea.value);
 });
-
-function saveItem() {
-  let value = textArea.value;
-  localStorage.setItem("text", value);
-}
 
 function getItem() {
   document.getElementById("editor").textContent = localStorage.getItem("text");

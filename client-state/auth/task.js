@@ -12,12 +12,13 @@ btn.addEventListener("click", (e) => {
 
   xhr.open("POST", url);
 
-  xhr.upload.onloadend = function (e) {
-    let welcomePage = document.querySelector("#welcome");
+  xhr.responseType = "json";
+
+  xhr.upload.onload = function (e) {
+    let welcomePage = document.querySelector(".welcome");
     let userId = document.querySelector("#user_id");
 
-    // userId.innerHTML =   тут вопрос как получить id пользователя.
-    // В объекте "e" я его не нашёл. Метод .response ничего не возвращает
+    console.log(xhr.response);
 
     formWrapper.classList.remove("signin_active");
     welcomePage.classList.add("welcome_active");
@@ -26,6 +27,8 @@ btn.addEventListener("click", (e) => {
   xhr.upload.onerror = () => {
     alert("«Неверный логин/пароль");
   };
+
+  form.reset();
 
   xhr.send(formData);
 });
