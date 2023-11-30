@@ -14,7 +14,7 @@ textArea.addEventListener("input", (e) => {
 });
 
 function getItem() {
-  document.getElementById("editor").textContent = localStorage.getItem("text");
+  textArea.textContent = localStorage.getItem("text");
 }
 
 getItem();

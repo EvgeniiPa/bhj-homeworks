@@ -1,6 +1,14 @@
 let form = document.querySelector("#signin__form");
 let formWrapper = document.querySelector(".signin");
 let btn = document.querySelector("#signin__btn");
+let welcomePage = document.querySelector(".welcome");
+let userId = document.querySelector("#user_id");
+
+if (localStorage.hasOwnProperty("user_id")) {
+  formWrapper.classList.remove("signin_active");
+  welcomePage.classList.add("welcome_active");
+  userId.innerHTML = localStorage.user_id;
+}
 
 btn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -14,18 +22,17 @@ btn.addEventListener("click", (e) => {
 
   xhr.responseType = "json";
 
-  xhr.upload.onload = function (e) {
-    let welcomePage = document.querySelector(".welcome");
-    let userId = document.querySelector("#user_id");
+  xhr.onload = function (e) {
+    let answer = xhr.response.success;
 
-    console.log(xhr.response);
-
-    formWrapper.classList.remove("signin_active");
-    welcomePage.classList.add("welcome_active");
-  };
-
-  xhr.upload.onerror = () => {
-    alert("«Неверный логин/пароль");
+    if (answer) {
+      formWrapper.classList.remove("signin_active");
+      welcomePage.classList.add("welcome_active");
+      userId.innerHTML = xhr.response.user_id;
+      localStorage.setItem("user_id", xhr.response.user_id);
+    } else {
+      alert("«Неверный логин/пароль»");
+    }
   };
 
   form.reset();

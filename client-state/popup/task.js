@@ -2,9 +2,7 @@ let modal = document.querySelector(".modal");
 let btnCLose = document.querySelector(".modal__close");
 
 let arr = document.cookie.split("; ");
-let result = arr.find((item) => {
-  return item == "popupCLose=close";
-});
+let result = arr.find((item) => item == "popupCLose=close");
 
 if (!result) {
   modal.classList.add("modal_active");
