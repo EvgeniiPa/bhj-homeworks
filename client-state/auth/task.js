@@ -1,35 +1,34 @@
-let form = document.querySelector("#signin__form");
-let formWrapper = document.querySelector(".signin");
-let btn = document.querySelector("#signin__btn");
-let welcomePage = document.querySelector(".welcome");
-let userId = document.querySelector("#user_id");
+const form = document.querySelector("#signin__form");
+const formWrapper = document.querySelector(".signin");
+const btn = document.querySelector("#signin__btn");
+const welcomePage = document.querySelector(".welcome");
+const userId = document.querySelector("#user_id");
 
-if (localStorage.hasOwnProperty("user_id")) {
+if (localStorage.getItem("user_id")) {
   formWrapper.classList.remove("signin_active");
   welcomePage.classList.add("welcome_active");
   userId.innerHTML = localStorage.user_id;
 }
 
-btn.addEventListener("click", (e) => {
-  e.preventDefault();
+btn.addEventListener("click", (event) => {
+  event.preventDefault();
 
-  let xhr = new XMLHttpRequest();
-  let url = "https://students.netoservices.ru/nestjs-backend/auth";
+  const xhr = new XMLHttpRequest();
+  const formData = new FormData(form);
 
-  let formData = new FormData(form);
-
-  xhr.open("POST", url);
-
+  xhr.open("POST", "https://students.netoservices.ru/nestjs-backend/auth");
   xhr.responseType = "json";
 
-  xhr.onload = function (e) {
-    let answer = xhr.response.success;
+  xhr.onload = () => {
+    const responseSuccess = xhr.response.success;
 
-    if (answer) {
+    if (responseSuccess) {
+      const userId = xhr.response.user_id;
+
       formWrapper.classList.remove("signin_active");
       welcomePage.classList.add("welcome_active");
-      userId.innerHTML = xhr.response.user_id;
-      localStorage.setItem("user_id", xhr.response.user_id);
+      userId.innerHTML = userId;
+      localStorage.setItem("user_id", userId);
     } else {
       alert("«Неверный логин/пароль»");
     }
